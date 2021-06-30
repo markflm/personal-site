@@ -18,8 +18,8 @@ export default {
   },
   mounted() {
     //window.addEventListener("scroll", this.moveCamera);
+    window.addEventListener("resize", this.resizeCanvas);
     this.init();
-    //this.addProfilePic();
   },
   unmounted() {
     //window.removeEventListener("scroll", this.moveCamera);
@@ -34,7 +34,7 @@ export default {
         1000
       );
 
-      this.camera.position.z = 30;
+      //this.camera.position.z = 30;
 
       this.renderer = new THREE.WebGLRenderer();
       document
@@ -43,23 +43,22 @@ export default {
 
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.setSize(window.innerWidth, window.innerHeight);
-      const pointLight = new THREE.PointLight("purple");
-      pointLight.position.set(30);
-      const ambientLight = new THREE.AmbientLight("purple"); //ambientLight is like a 'floodlight', ligths up whole room
-      const lightHelper = new THREE.PointLightHelper(pointLight); //will display the location of a PointLight in the UI as a wireframe; good for positioning a point light
+      const pointLight = new THREE.PointLight("pink");
 
-      const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+      const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 100);
       const material = new THREE.MeshStandardMaterial({
         color: 0xff6347,
         wireframe: true,
       });
       this.torus = new THREE.Mesh(geometry, material);
-      this.torus.position.y = 100;
-      this.scene.add(pointLight, lightHelper, ambientLight, this.torus);
+      this.torus.position.y = 40;
+      this.torus.position.x = 25;
+      this.torus.position.z = 15;
+
+      this.scene.add(pointLight, this.torus);
       this.renderer.render(this.scene, this.camera); // Perform initial rendering operation
-      //this.controls = new OrbitControls(this.camera, this.renderer.domElement); // Create a control object
       this.createStarGeometry();
-      this.camera.lookAt(0, 75, 0); //make camera look up to simulate movement through stars
+      this.camera.lookAt(0, 25, 0); //make camera look up to simulate movement through stars
       this.animate();
     },
     animate() {
@@ -67,7 +66,7 @@ export default {
         x.velocity += x.acceleration;
         x.y -= x.velocity;
         if (x.y < -20) {
-          x.y = 30;
+          x.y = 20;
           x.velocity = 0;
         }
       });
@@ -75,9 +74,13 @@ export default {
       this.stars.rotation.y += 0.00005;
       requestAnimationFrame(this.animate);
 
-      this.torus.rotation.x += 0.01;
-      this.torus.rotation.y += 0.01;
-      this.torus.rotation.z += 0.01;
+      this.torus.rotation.x += 0.001;
+      this.torus.rotation.y += 0.001;
+      this.torus.rotation.z += 0.001;
+      //this.torus.position.x -= 0.01;
+
+      //console.log(this.torus.position);
+
       //this.controls.update();
 
       this.renderer.render(this.scene, this.camera);
@@ -92,7 +95,7 @@ export default {
           THREE.MathUtils.randFloatSpread(100)
         );
         star.velocity = 0;
-        star.acceleration = 0.00002;
+        star.acceleration = 0.0001;
         this.starPoints.push(star);
       }
       this.starGeo.setFromPoints(this.starPoints);
@@ -107,14 +110,21 @@ export default {
       this.stars = new THREE.Points(this.starGeo, starMat);
       this.scene.add(this.stars);
     },
+    resizeCanvas() {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setPixelRatio(window.devicePixelRatio);
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      //this.animate();
+    },
     // moveCamera() {
     //   console.log("move");
     //   const currentScrollHeight = document.body.getBoundingClientRect().top; //how far from top of webpage
-    //   this.profileCube.rotation.y += 0.01;
-    //   this.profileCube.rotation.z += 0.01;
-    //   this.camera.z = currentScrollHeight * -0.01;
-    //   this.camera.x = currentScrollHeight * -0.0002;
-    //   this.camera.y = currentScrollHeight * -0.0002;
+    //   // this.profileCube.rotation.y += 0.01;
+    //   // this.profileCube.rotation.z += 0.01;
+    //   this.camera.position.z += currentScrollHeight * 0.1;
+    //   this.camera.position.x += currentScrollHeight * 0.001;
+    //   this.camera.position.y += currentScrollHeight * 0.0002;
     // },
     // addStar() {
     //   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -138,7 +148,5 @@ export default {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
-  overflow-x: hidden;
 }
 </style>
