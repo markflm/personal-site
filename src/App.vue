@@ -52,6 +52,17 @@ export default {
   font-family: "League Spartan Bold", arial;
   font-size: 20px;
 }
+
+body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+body::-webkit-scrollbar-track {
+  background: rgb(20, 20, 20);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--dark-bg);
+}
 .contentContainer {
   width: 100%;
   height: 100%;
@@ -93,11 +104,15 @@ export default {
 } */
 .nav {
   background: var(--dark-bg-opaque);
-  /* grid-column: 1/1; */
   height: 100vh;
-  width: 12.5%;
+  width: 8.5%;
   position: fixed;
   z-index: 100;
+  transition: width 250ms ease;
+}
+
+.nav:hover {
+  width: 14%;
 }
 .aboutMe {
   grid-column: 3 / 10;

@@ -1,10 +1,11 @@
 <template>
-  <div class="navInternal">
-    <div @click="scrollToSection('home')">Home</div>
-    <div @click="scrollToSection('about')">About</div>
-    <div @click="scrollToSection('portfolio')">Portfolio</div>
-    <div @click="scrollToSection('cin')">Contact</div>
-  </div>
+  <ul class="navInternal">
+    <!-- TODO: change to font-awesome svgs -->
+    <li @click="scrollToSection('home')">Home</li>
+    <li @click="scrollToSection('about')">About</li>
+    <li @click="scrollToSection('portfolio')">Portfolio</li>
+    <li @click="scrollToSection('cin')">Contact</li>
+  </ul>
 </template>
 
 <script>
@@ -22,6 +23,8 @@ export default {
 
 <style>
 .navInternal {
+  padding: 0;
+  list-style: none;
   display: flex;
   flex-direction: column;
   margin-top: 200px;
@@ -36,10 +39,11 @@ export default {
   color: white;
 }
 
-.navInternal > div {
+.navInternal > li {
   border-bottom: 1px solid white;
   width: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 </style>
