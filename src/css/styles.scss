@@ -79,6 +79,23 @@ body::-webkit-scrollbar-thumb {
 
 .portfolio {
   grid-column: 3 / 10;
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
+}
+.section.portfolio > div:first-child {
+  margin-right: 20px;
+}
+
+.imgStacker {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.imgStacker > img {
+  margin-bottom: 20px;
+  
 }
 .contact {
   grid-column: 3/ 10;
