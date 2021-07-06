@@ -20,8 +20,8 @@
       <div class="section portfolio" id="portfolio">
         <div>a</div>
         <div class="imgStacker">
-          <img src="./assets/pointcheckHome.png" height="500" width="600" />
-          <img src="./assets/pointcheckResult.png" height="500" width="600" />
+          <img src="./assets/pointcheckHome.png" height="400" width="300" />
+          <img src="./assets/pointcheckResult.png" height="400" width="300" />
         </div>
       </div>
       <div class="section contact" id="contact">
@@ -34,7 +34,7 @@
 <script>
 import Scene from "./components/Scene";
 import Navbar from "./components/Navbar";
-import ContactForm from "./components/ContactForm.vue";
+import ContactForm from "./components/ContactForm";
 
 export default {
   name: "App",
